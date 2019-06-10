@@ -41,6 +41,7 @@
       force_apt_get: yes
       state: latest
       name:
+       - python
        - python-pip
        - python-virtualenv
 
