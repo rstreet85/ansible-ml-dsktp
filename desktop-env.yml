@@ -1,0 +1,122 @@
+---
+- hosts: local
+  become: yes
+  become_user: root
+  tasks:
+#  Todo: have these echo progress of each task
+
+  - name: sudo apt-get update && sudo apt-get upgrade
+    apt:
+      force_apt_get: yes
+      update_cache: yes
+      upgrade: yes
+
+  - name: Install Essential APT Packages
+    apt:
+      force_apt_get: yes
+      state: latest
+      name:
+       - ansible
+       - build-essential
+       - curl
+       - git
+       - snapd
+       - ubuntu-restricted-extras
+
+  - name: Install C/C++/Fortran APT Packages
+    apt:
+      force_apt_get: yes
+      state: latest
+      name:
+       - cmake
+       - gfortran
+
+#Todo: get_url
+#Todo: this doesn't install rustc
+  - name: Install Rust
+    shell: "curl https://sh.rustup.rs -sSf | sh -s -- -y"
+
+  - name: Install Python 2 APT Packages
+    apt:
+      force_apt_get: yes
+      state: latest
+      name:
+       - python-pip
+       - python-virtualenv
+
+  - name: Install Python 3 APT Packages
+    apt:
+      force_apt_get: yes
+      state: latest
+      name:
+       - python3
+       - python3-pip
+       - python3-venv
+
+  - name: Install JavaScript APT Packages
+    apt:
+      force_apt_get: yes
+      state: latest
+      name:
+       - nodejs
+       - npm
+
+  - name: Install Java APT Packages
+    apt:
+      force_apt_get: yes
+      state: latest
+      name:
+       - openjdk-12-jdk-headless
+       - openjdk-12-jre-headless
+
+  - name: Install Utilities APT Packages
+    apt:
+      force_apt_get: yes
+      state: latest
+      name:
+       - bluefish
+       - geany
+       - gimp
+       - soundconverter
+       - vim
+       - vlc
+
+  - name: Install Snaps (Utilities, IDEs, etc)
+    snap:
+      classic: yes
+      name:
+       - android-studio
+       - atom
+       - audacity
+       - aws-cli
+       - blender
+       - brackets
+       - clion
+       - code
+       - eclipse
+       - gitkraken
+       - intellij-idea-community
+       - postman
+       - pycharm-community
+       - simplyfortran
+
+  - name: Install Pip2 Packages
+    pip:
+      state: latest
+      name:
+       - keras
+       - matplotlib
+       - numpy
+       - pillow
+       - tensorflow
+
+  - name: Install Pip3 Packages
+    pip:
+      state: latest
+      executable: pip3
+      name:
+       - keras
+       - matplotlib
+       - numpy
+       - pillow
+       - tensorflow
